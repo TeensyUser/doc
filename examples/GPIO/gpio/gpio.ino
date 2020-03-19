@@ -14,7 +14,7 @@ void setup()
     printDigitalVal(inputPin, digitalReadFast(inputPin));
 
     pinMode(inputPin, INPUT_PULLDOWN);
-    Serial.println("\nUsing INPUT_PULLUP:");
+    Serial.println("\nUsing INPUT_PULLDOWN:");
     printDigitalVal(inputPin, digitalReadFast(inputPin));
 }
 
