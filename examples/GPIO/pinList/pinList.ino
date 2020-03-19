@@ -1,96 +1,47 @@
 #include "Arduino.h"
-#include "pins.h"
 #include <algorithm>
-#include <vector>
-
-using namespace pins;
-
-void display(boards);
-
-struct info_t
-{
-    unsigned pin;
-    char port;
-    unsigned bit;
-};
+#include "pin.h"
 
 void setup()
 {
-    while (!Serial && millis() < 1000) {}
+    while (!Serial && millis() < 1000){}
 
-    Serial.println("-----------------------------------------------------");
-    Serial.println("Teensy LC");
-    Serial.println("-----------------------------------------------------");
-    display(T_LC);
+    Pin *pins1[CORE_NUM_DIGITAL];
+    Pin *pins2[CORE_NUM_DIGITAL];
 
-    Serial.println("\n-----------------------------------------------------");
-    Serial.println("Teensy 3.0, 3.1, 3.2");
-    Serial.println("-----------------------------------------------------");
-    display(T3_0_1_2);
-
-    Serial.println("\n-----------------------------------------------------");
-    Serial.println("Teensy 3.5, 3.6");
-    Serial.println("-----------------------------------------------------");
-    display(T3_5_6);
-
-    return;
-}
-
-void loop()
-{
-    digitalWriteFast(LED_BUILTIN, !digitalReadFast(LED_BUILTIN)); // toggle pin
-    delay(150);
-}
-
-// Helpers ----------------------------------------------------------
-
-char PortName(portList port)
-{
-    if (port == portList::na) return 'X';
-    return 'A' + port;
-}
-
-void display(boards board)
-{
-    constexpr unsigned pinCnt = sizeof(pinMap) / sizeof(pinMap[0]);
-    std::vector<info_t> infosA, infosB;
-
-    info_t info;
-    for (unsigned i = 0; i < pinCnt; i++)
+    for (unsigned pinNr = 0; pinNr < CORE_NUM_DIGITAL; pinNr++)
     {
-        info.pin = i;
-        info.port = PortName(pinMap[i][board].port);
-        info.bit = pinMap[i][board].pin;
-        if (info.port == 'X') break;
-
-        infosA.push_back(info);
-        infosB.push_back(info);
+        Pin *p = new Pin(pinNr);
+        pins1[pinNr] = p;
+        pins2[pinNr] = p;
     }
-    
-    // sort infosA by pin number
-    std::sort(infosA.begin(), infosA.end(), [](info_t a, info_t b){return a.pin < b.pin;});
 
-    // sort infosB by port and bit 
-    std::sort(infosB.begin(), infosB.end(), [](info_t a, info_t b) {
-        if (a.port < b.port) return true;
-        if (a.port > b.port) return false;
-        if (a.bit < b.bit) return true;
+    std::sort(pins1, pins1 + CORE_NUM_DIGITAL, [](Pin *a, Pin *b) { return a->getPinNr() < b->getPinNr(); }); // Sort pins1 by pin
+    std::sort(pins2, pins2 + CORE_NUM_DIGITAL, [](Pin *a, Pin *b)                                             // Sort pins2 by GPIO and Bit
+    {
+        if (a->getGpioNr() < b->getGpioNr()) return true;
+        if (a->getGpioNr() > b->getGpioNr()) return false;
+        if (a->getBitNr() < b->getBitNr())   return true;
         return false;
     });
 
-    Serial.println("Sorted by pin number:     |   Sorted by Port and Bit");
-    for (unsigned i = 0; i < infosA.size(); i++)
+    // Print results in two columns--------------------------
+
+    Serial.println("PIN   GPIOn-BITm  |  GPIOn-BITm    PIN");
+    Serial.println("------------------|-------------------");
+    for (unsigned i = 0; i < CORE_NUM_DIGITAL; i++)
     {
-        unsigned pinA = infosA[i].pin;
-        unsigned bitA = infosA[i].bit;
-        char portA = infosA[i].port;
-
-        unsigned pinB = infosB[i].pin;
-        unsigned bitB = infosB[i].bit;
-        char portB = infosB[i].port;
-
-        Serial.printf("Pin %2d  PORT_%c  Bit: %2d   |   PORT_%c  Bit %2d  Pin: %2d  \n", pinA, portA, bitA, portB, bitB, pinB);
-    }
+        unsigned pin1 = pins1[i]->getPinNr();
+        unsigned pin2 = pins2[i]->getPinNr();
+        unsigned gpio1 = pins1[i]->getGpioNr();
+        unsigned gpio2 = pins2[i]->getGpioNr();
+        unsigned bit1 = pins1[i]->getBitNr();
+        unsigned bit2 = pins2[i]->getBitNr();
+        Serial.printf("%02d  -> GPIO%u-%02u   |   GIPO%u-%02u  ->  %02d\n", pin1, gpio1, bit1, gpio2, bit2, pin2);
+    }    
 }
 
+void loop()
+{   
+}
 
