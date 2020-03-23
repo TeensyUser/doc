@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29505.145
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HidTester", "ConsoleApp1\HidTester.csproj", "{9F708F2B-17C8-47A3-BD8D-E77E0BFBE9E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_Receiver", "ConsoleApp1\01_Receiver.csproj", "{9F708F2B-17C8-47A3-BD8D-E77E0BFBE9E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_Sender", "02_Sender\02_Sender.csproj", "{83435A80-A43A-4E93-B9D7-5A7B034AFB81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9F708F2B-17C8-47A3-BD8D-E77E0BFBE9E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F708F2B-17C8-47A3-BD8D-E77E0BFBE9E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F708F2B-17C8-47A3-BD8D-E77E0BFBE9E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83435A80-A43A-4E93-B9D7-5A7B034AFB81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83435A80-A43A-4E93-B9D7-5A7B034AFB81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83435A80-A43A-4E93-B9D7-5A7B034AFB81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83435A80-A43A-4E93-B9D7-5A7B034AFB81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
