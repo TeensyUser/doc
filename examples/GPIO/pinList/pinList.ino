@@ -1,4 +1,4 @@
-#include "Arduino.h"
+//#include "Arduino.h"
 #include <algorithm>
 #include "pin.h"
 
@@ -16,8 +16,11 @@ void setup()
         pins2[pinNr] = p;
     }
 
-    std::sort(pins1, pins1 + CORE_NUM_DIGITAL, [](Pin *a, Pin *b) { return a->getPinNr() < b->getPinNr(); }); // Sort pins1 by pin
-    std::sort(pins2, pins2 + CORE_NUM_DIGITAL, [](Pin *a, Pin *b)                                             // Sort pins2 by GPIO and Bit
+    std::sort(pins1, pins1 + CORE_NUM_DIGITAL, [](Pin *a, Pin *b) // Sort pins1 by pin
+    {
+         return a->getPinNr() < b->getPinNr();
+    });
+    std::sort(pins2, pins2 + CORE_NUM_DIGITAL, [](Pin *a, Pin *b) // Sort pins2 by GPIO and Bit
     {
         if (a->getGpioNr() < b->getGpioNr()) return true;
         if (a->getGpioNr() > b->getGpioNr()) return false;
@@ -38,10 +41,10 @@ void setup()
         unsigned bit1 = pins1[i]->getBitNr();
         unsigned bit2 = pins2[i]->getBitNr();
         Serial.printf("%02d  -> GPIO%u-%02u   |   GIPO%u-%02u  ->  %02d\n", pin1, gpio1, bit1, gpio2, bit2, pin2);
-    }    
+    }
 }
 
 void loop()
-{   
+{
 }
 

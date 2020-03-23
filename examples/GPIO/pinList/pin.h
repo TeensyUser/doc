@@ -27,7 +27,7 @@ Pin::Pin(unsigned pin, unsigned mode)
 
 #elif defined(ARDUINO_TEENSY40)
 
-PinInfo::PinInfo(unsigned pin, unsigned mode)
+Pin::Pin(unsigned pin, unsigned mode)
     : pinNr(pin),
       pinCfg((uintptr_t)digital_pin_to_info_PGM[pinNr].reg),        // address of pin config register
       gpioNr((pinCfg - (uintptr_t)&IMXRT_GPIO6) / 0x4000 + 6),      // cfg base addresses are 4kB aligned staring with PORTA_PCR0

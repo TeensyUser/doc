@@ -2,8 +2,9 @@
 using System;
 using System.Linq;
 
-namespace hid2
-{    class Program
+namespace hid
+{
+    class Program
     {
         static void Main(string[] args)
         {
