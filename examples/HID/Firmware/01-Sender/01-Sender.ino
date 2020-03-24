@@ -1,12 +1,11 @@
-uint8_t buf[64];
-
+uint8_t report[64];
 void setup()
 {
 }
 
 void loop()
 {
-    buf[0] = millis()/100;
-    usb_rawhid_send(buf, 1000);
+    report[0] = millis()/100;
+    usb_rawhid_send(report, 1000);
     delay(100);
 }

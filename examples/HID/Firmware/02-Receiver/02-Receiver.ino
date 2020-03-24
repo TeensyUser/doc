@@ -6,6 +6,8 @@ void loop()
 {
     char buf[64];
 
-    usb_rawhid_recv(buf, 1000);
-    Serial.println(buf);
+    if(usb_rawhid_recv(buf, 10) > 0)
+    {
+      Serial.println(buf);
+    }
 }
