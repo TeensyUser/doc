@@ -40,7 +40,7 @@ void setup()
         unsigned gpio2 = pins2[i]->getGpioNr();
         unsigned bit1 = pins1[i]->getBitNr();
         unsigned bit2 = pins2[i]->getBitNr();
-        Serial.printf("%02d  -> GPIO%u-%02u   |   GIPO%u-%02u  ->  %02d\n", pin1, gpio1, bit1, gpio2, bit2, pin2);
+        Serial.printf("%02d  -> GPIO%u-%02u   |   GPIO%u-%02u  ->  %02d\n", pin1, gpio1, bit1, gpio2, bit2, pin2);
     }
 }
 
