@@ -25,7 +25,7 @@ Pin::Pin(unsigned pin, unsigned mode)
     pinMode(pinNr, mode);
 }
 
-#elif defined(ARDUINO_TEENSY40) || defined (ARDUINO_TEENSY41)
+#elif defined(ARDUINO_TEENSY40) || defined (ARDUINO_TEENSY41) || defined (ARDUINO_TEENSY_MICROMOD)
 
 Pin::Pin(unsigned pin, unsigned mode)
     : pinNr(pin),
